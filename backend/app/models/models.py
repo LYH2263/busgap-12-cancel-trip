@@ -20,6 +20,7 @@ class Trip(Base):
     trip_no: Mapped[str] = mapped_column(String(32))
     planned_depart: Mapped[datetime] = mapped_column(DateTime)
     vehicle_no: Mapped[str] = mapped_column(String(32), default="")
+    status: Mapped[str] = mapped_column(String(16), default="active")
     line: Mapped["Line"] = relationship(back_populates="trips")
     arrivals: Mapped[list["Arrival"]] = relationship(back_populates="trip")
 

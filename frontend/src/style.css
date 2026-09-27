@@ -118,6 +118,16 @@ h1 { margin: 0 0 0.25rem; font-size: 1.25rem; font-weight: 700; }
 }
 .bg-trip-row:hover { background: rgba(46,196,255,0.06); }
 .bg-trip-meta { color: var(--bg-dim); font-size: 0.75rem; }
+.bg-trip-cancelled { opacity: 0.55; }
+.bg-trip-cancelled > div:first-child > div:first-child { text-decoration: line-through; }
+.bg-trip-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+.btn-cancel {
+  background: transparent; color: var(--bg-red);
+  border: 1px solid var(--bg-red); border-radius: 2px;
+  padding: 0.15rem 0.6rem; font-size: 0.75rem; font-weight: 700; cursor: pointer;
+}
+.btn-cancel:hover { background: rgba(255,77,109,0.15); }
+.btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .bg-strip-col {
   display: flex; gap: 0.65rem; overflow-x: auto; padding-bottom: 0.5rem;
