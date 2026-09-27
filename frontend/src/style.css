@@ -118,6 +118,12 @@ h1 { margin: 0 0 0.25rem; font-size: 1.25rem; font-weight: 700; }
 }
 .bg-trip-row:hover { background: rgba(46,196,255,0.06); }
 .bg-trip-meta { color: var(--bg-dim); font-size: 0.75rem; }
+.bg-trip-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
+.btn-cancel {
+  background: transparent; color: var(--bg-red);
+  border: 1px solid var(--bg-red); padding: 0.25rem 0.6rem; font-size: 0.75rem;
+}
+.btn-cancel:disabled { border-color: var(--bg-edge); color: var(--bg-dim); }
 
 .bg-strip-col {
   display: flex; gap: 0.65rem; overflow-x: auto; padding-bottom: 0.5rem;

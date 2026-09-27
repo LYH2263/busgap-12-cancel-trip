@@ -30,7 +30,12 @@ function label(s: string) {
       <h2>关联班次</h2>
       <div v-for="r in trips" :key="r.id ?? r.trip_no" class="bg-trip-row">
         <div>
-          <div>{{ r.trip_no }}</div>
+          <div>
+            {{ r.trip_no }}
+            <span class="badge" :class="r.status === 'cancelled' ? 'badge-bad' : 'badge-ok'">
+              {{ r.status === 'cancelled' ? '已取消' : '在跑' }}
+            </span>
+          </div>
           <div class="bg-trip-meta">{{ r.vehicle_no }}</div>
         </div>
         <div class="bg-trip-meta">{{ r.planned_depart }}</div>

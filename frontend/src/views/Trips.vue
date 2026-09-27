@@ -3,12 +3,17 @@ import { onMounted, ref } from 'vue'
 import { api } from '../api'
 const trips = ref<any[]>([])
 const events = ref<any[]>([])
-onMounted(async () => {
+async function load() {
   trips.value = await api('/trips')
   try {
     events.value = (await api('/reports/run?line_id=1', { method: 'POST' })).events || []
   } catch { events.value = [] }
-})
+}
+onMounted(load)
+async function cancelTrip(r: any) {
+  await api(`/trips/${r.id}/cancel`, { method: 'POST' })
+  await load()
+}
 function stripClass(s: string) {
   return s === 'bunching' ? 'bg-bunch' : s === 'large_gap' ? 'bg-large' : ''
 }
@@ -24,10 +29,20 @@ function label(s: string) {
       <h2>班次列表</h2>
       <div v-for="r in trips" :key="r.id ?? r.trip_no" class="bg-trip-row">
         <div>
-          <div>{{ r.trip_no }}</div>
+          <div>
+            {{ r.trip_no }}
+            <span class="badge" :class="r.status === 'cancelled' ? 'badge-bad' : 'badge-ok'">
+              {{ r.status === 'cancelled' ? '已取消' : '在跑' }}
+            </span>
+          </div>
           <div class="bg-trip-meta">线路 {{ r.line_id }} · 车 {{ r.vehicle_no }}</div>
         </div>
-        <div class="bg-trip-meta">{{ r.planned_depart }}</div>
+        <div class="bg-trip-side">
+          <div class="bg-trip-meta">{{ r.planned_depart }}</div>
+          <button class="btn btn-cancel" :disabled="r.status === 'cancelled'" @click="cancelTrip(r)">
+            {{ r.status === 'cancelled' ? '已取消' : '取消班次' }}
+          </button>
+        </div>
       </div>
     </aside>
     <div class="bg-strip-col">
